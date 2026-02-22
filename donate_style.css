@@ -1,515 +1,270 @@
 @charset "utf-8";
-
-.wrap{
-  display: flex;
-  flex-wrap: wrap;
+/* 讓 pagetop 點擊後有平滑捲動效果 */
+html {
+    scroll-behavior: smooth;
 }
 
-/*背景*/
-body {
-  background: #73A2A5;
-}
-
-/*圖片*/
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/*按鈕*/
-button {
-  color: #fff;
-  background-color: #6B8EAE;
-  border: none;
-  text-align: center;
-  padding: 9px 6em;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 9px;
-}
-button:hover {
-  color: black;
-  background-color: #F5A623;
-  
-}
-
-a {
-    text-decoration: none;
-}
-a:link {
-    color: #F5A623;
-}
-
-a:hover {
-    color: #564032; 
-}
-
-a:active {
-    color: #564032;
-}
-a:visited {
-    color: #F5A623;
-}
-
-@font-face {
-  font-family: 'SentyVanilla';
-  src: 
-         url('./SentyVanilla.ttf') format("truetype"),
-        }
-
-/*標題&文字設定*/
-
-body h2,h3,h4{
-   width: cover;
-   position: relative;
-   text-align: center;
-}
-
-h1{
-  margin: 40px auto;
-  padding: 30px;
-  color: #fff;
-  font-size: 64px;
-  text-align: center;
-  line-height: 1.5;
-  font-family: 'SentyVanilla', regular;
-}
-h2 {
-  margin: auto;
-  padding: 30px;
-  color: #564032;
-  font-size: 48px;
-  text-align: center;
-  line-height: 1;
-  font-family: 'SentyVanilla', regular;
-}
-
-h3 {
-  padding: 10px;
-  color: #03045E;
-  font-size: 36px;
-  font-family: 'SentyVanilla', regular;
-}
-
-h4 {
-  padding: 10px;
-  color: #F5A623;
-  font-size: 27px;
-  font-family: 'SentyVanilla', regular;
-}
-h5 {
-  padding: 9px;
-  color: #4C745D;
-  font-size: 20px;
-  font-weight: bold;
-  font-family: 'SentyVanilla', regular;
-}
-p {
-  padding: 5px;
-  color: #000000;
-  font-size: 18px;
-  font-family: 'Gen Jyuu Gothic', Regular;
-  
-}
-
-p span{
-  font-weight: bold;
-  }
-
-h6 {
-  color: #4C745D;
-  font-size: 16px;
-  font-family: 'SentyVanilla', regular;
-}
-
-ul, li, ol {
-  color: #000000;
-  font-size: 18px;
-  font-family: 'Gen Jyuu Gothic', Regular;
-  margin-top: 6px;
-}
-
-/*頁首*/
-
-*{
+/* 確保所有元素不會撐破螢幕 */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+/* 全域重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     line-height: 1.5;
 }
-.main-menu > ul{
-        display: flex;
-        list-style: none;
+
+body {
+    background: #73A2A5;
+    font-family: 'Gen Jyuu Gothic', sans-serif;
+}
+
+/* Header & Menu (修正：加入與其他頁面一致的選單邏輯) */
+/* 讓導覽列固定在頂部 */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* 漢堡選單美化 */
+.hb {
+    display: none; /* 電腦版隱藏 */
+    cursor: pointer;
+    width: 35px;
+    height: 30px;
+    position: relative;
+}
+
+@media screen and (max-width: 768px) {
+    .hb { display: block; }
+    .hb .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #F5A623;
+        margin-bottom: 6px;
+        transition: 0.3s;
+        border-radius: 3px;
     }
-.main-menu a{
-    color: #6B8EAE;
-    text-decoration: none;
-    display: block;
-    padding: 10px 1em;
-}
-.main-header{
-  position: sticky;
-  top: 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #fff;
-  z-index: 1;
-}
-.logo img{
-    display: block;
-}
-.menu li {
-  list-style-type: none;
-  display: inline-block;
-  width: 150px;
-  margin: 0 10px;
-}
-.menu a {
-  text-align: center;
-  display: block;
-  padding: 10px;
-  font-size: 20px;
-  background: #6B8EAE;
-  border-radius: 12px;
-  color: #fff;
-  text-decoration: none;
-}
-.menu a:hover {
-  background: #F5A623;
+    /* 當選單開啟時的簡單動畫 */
+    .main-header:has(.menu-switch:checked) .bar1 { transform: translateY(9px) rotate(45deg); }
+    .main-header:has(.menu-switch:checked) .bar2 { opacity: 0; }
+    .main-header:has(.menu-switch:checked) .bar3 { transform: translateY(-9px) rotate(-45deg); }
 }
 
-/* main */
+.logo img { height: 50px; }
 
-.main {
-  width: cover;
-  height: 800px;
-  position: relative;
-  display: flex;
-  box-sizing: border-box;
-  justify-content: center; /* 水平置中 */
-  align-items: center; /* 垂直置中 */
-  text-align: left;
-  background-image: url(./img/index/bg4.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+.menu-switch { display: none; }
+
+@media screen and (max-width: 768px) {
+    
+    .main-menu {
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        background-color: #fff;
+        width: 60%;
+        height: 100vh;
+        transition: 0.5s;
+    }
+    
 }
 
-/* left */
-
- .left{
-  width: 30%;
-  height: 100%;
-  position: relative; 
-  background-color: #4C745D;
-  margin-left: 0%;
-  padding: 10px;
+@media screen and (min-width: 769px) {
+    .main-menu ul { display: flex; list-style: none; }
+    .main-menu a {
+        color: #6B8EAE;
+        padding: 10px 15px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .main-menu a:hover { color: #F5A623; }
 }
 
-.left .card{
-    width: cover;
-    height: 30%;
-    box-sizing: border-box;
+/* 主要內容容器 */
+.main-content {
     display: flex;
     flex-wrap: wrap;
-    position: relative;
-    margin-bottom: 10px;
-    padding: 5px;
-    align-items: center;	
-  justify-content: space-around;
+    min-height: 800px;
 }
 
-.left img,video{
-  opacity: 30%;
-}
-
-.left img{
-  width: 30%;
-  height: auto;
-  position: relative;
-}
-.left img:hover {
-  border: #F5A623 solid 3px;
-  opacity: 100%;
-}
-
-.left video{
-  position: relative;
-  bottom: 30px;
-}
-.left video:hover {
-  opacity: 100%;
-}
-
-
-/*頁尾*/
-footer {
-  height: 540px;
-  width: cover;
-  box-sizing: border-box;
-  display: flex;
-  margin: auto;
-  padding: 30px;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  background-color: #6B8EAE;
-  text-align: left;
-}
-
-footer .card {
-  height: auto;
-  width: 30%;
-  margin: 15px;
-  position: relative;
-  padding: 0;
-}
-
-footer strong{
-  color: #03045E;
-  font-size: 20px;
-  font-weight: bold;
-  font-family: 'Gen Jyuu Gothic', Regular;
-  position: relative;
-  text-align: left;
-  line-height: 2.5;
-}
-
-footer .icon{
-  position: relative; 
-  width: 270px ;
-  display: flex;	
-  justify-content: space-around;
-}
-
-footer .icon a{
-  width: auto; 
-  height: 45px;
-}
-
-
-footer a {
-    text-decoration: none;
-}
-footer a:link {
-    color: #fff;
-}
-
-footer a:hover {
-    color: #F5A623; 
-}
-
-footer a:active {
-    color: #03045E;
-}
-
-/*footer表單*/
-
-.EndTable input[type="email"]{
-  width: 50%;
-  height: auto;
-  padding: 5px;
-  border-radius: 33px;
-  background-color: rgba(255,255,255,30%);
-  box-sizing: border-box;
-  outline: none;
-  font-size: 1em;
-}
-
-.EndTable input[type="email"]:focus {
-  background-color: #F5F1E4;
-  border: 1px solid #ffa700;
-}
-
-.EndTable input[type="email"] {
-    border: none;
-  }
-
-  /*footer表單按鈕*/
-  .EndTable .Btns {
+/* 左側圖片區 (修正：Hover 效果) */
+.left-section {
+    flex: 1;
+    min-width: 300px;
+    background-color: #4C745D;
+    padding: 50px 20px;
     text-align: center;
-    position: relative;
-  }
-  .EndTable .Btns input {
-    border: none;
-    border-radius: 33px;
-    font-size: 1em;
     color: #fff;
-    margin: auto 15px;
-    padding: 10px;
-  }
-  .EndTable .Btns input[type="submit"] {
-    background: #F5A623;
-    width: 90%;
-  }
-
-  /*footer滑鼠移到送出鈕*/
-  .EndTable .Btns input:hover {
-    opacity: 0.7;
-  }
-    
-/*pagetop*/
-
-.pagetop {
-  width: 45px;
-  height: auto;
-  right: 60px;
-  bottom: 60px;
-  display: block;
-  position: fixed;
-  box-sizing: border-box;
-  border-radius: 50%;
-  }
-
-  /*  */
-/*rwd*/
-
-/* .col{
-    box-sizing: border-box;
-    width: 100%;
-    padding: 10px 20px;
-}
-.card{
-    height: 100px;
-    background-color: #fa0;
-} */
-
-@media screen and (min-width:768px) {
-    .col{
-        width: 50%;
-    }
-}
-@media screen and (min-width:1024px) {
-    .col{
-        width: 33.3%;
-    }
-}
-@media screen and (min-width:1200px) {
-    .col{
-        width: 25%;
-    }
 }
 
-
-/*捐款單*/
-#right {
-  height: cover;
-  width: 60%;
-  display: block;
-  position: relative;
-  margin: 1% ;
-  margin-right: 30px;
-  padding: 30px 90px;
-  background-color: rgba(255,255,255,60%);
+.left-section h1 {
+    font-family: 'SentyVanilla', cursive;
+    font-size: 48px;
+    margin-bottom: 50px;
 }
 
-/*表格設定*/
+.img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.img-container img {
+    width: 60%;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.img-container img:hover {
+    transform: scale(1.15); /* 修正：Hover 放大 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* 右側表單區 (修正：排版穩定性) */
+#right-form {
+    flex: 2;
+    min-width: 400px;
+    padding: 40px 5%;
+    background-color: rgba(255,255,255,0.8);
+}
+
+h2 {
+    font-family: 'SentyVanilla', cursive;
+    color: #564032;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .donateTable {
-  width: 100%;
-  margin: auto;
-  border: 1.5px solid #F5A623;
-  border-collapse: collapse;
-  font-family: 'Gen Jyuu Gothic', Regular;
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 2px solid #F5A623;
 }
-.donateTable tr{
-  margin: 9% auto;
+
+.donateTable th, .donateTable td {
+    padding: 15px;
+    border: 1px solid #ddd;
 }
-  
-.donateTable th,
-.donateTable td {
-  padding: 1%;
-  border: rgba(0, 0, 0, 0.180) 1px solid;
-}
+
 .donateTable th {
-  width: 10em;
-  background-color: #FAF5E2;
-  text-align: center;
-}
-.donateTable caption {
-  margin-bottom: 9px;
-}
-
-.donateTable:hover{
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  background-color: rgba(255,255,255,60%);
-}
-
-/*輸入表單*/
-
-.donateTable input ,
-.donateTable textarea{
-  border: 1px solid #ccc;
+    background-color: #FAF5E2;
+    width: 30%;
+    text-align: right;
 }
 
 .donateTable input[type="text"],
 .donateTable input[type="email"],
+.donateTable input[type="tel"],
+.donateTable select,
 .donateTable textarea {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: 1em;
-}
-.donateTable input[type="text"]:focus,
-.donateTable input[type="email"]:focus,
-.donateTable input[type="tel"]:focus,
-.donateTable input[type="radio"]:focus,
-.donateTable input[type="number"]:focus,
-.donateTable textarea:focus {
-  background-color: #FAF5E2;
-  outline: none;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-/*滑鼠*/
-label,
-input,
-textarea,
-select {
-  cursor: pointer;
-}
-
-
-/*捐款按鈕*/
+/* 按鈕區修正 (修正：不再跑版) */
 .donateBtns {
-  width: cover;
-  position: relative;	
-  display: flex;
-  justify-content: space-around;
-  padding: auto;
-  margin-top: 30px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .donateBtns input {
-  width: 300px;
-  color: #fff;
-  border: #F2A8A5 solid 3px;
-  background-color: #F2A8A5;
-  text-align: center;
-  margin: 0%;
-  padding: 9px 3em;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 9px;
-  -webkit-appearance: none;
+    padding: 12px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.donateBtns input[type="submit"] {
+    background-color: #F2A8A5;
+    color: white;
 }
 
 .donateBtns input[type="reset"] {
-  background-color: transparent;
-  color: rgba(0, 0, 0, 0.480);
-  margin-right: -120px;
+    background-color: #eee;
+    color: #666;
 }
 
 .donateBtns input:hover {
-  color: #03045E;
-  background-color: #F5A623;
-  border: #F5A623 solid 3px;
+    background-color: #F5A623;
+    color: #fff;
+    transform: translateY(-2px);
 }
 
-  
+/* Footer */
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start; /* 讓內容對齊頂部 */
+    padding: 40px 5%;
+    background-color: #6B8EAE;
+    color: #fff;
+}
 
+footer .card {
+    flex: 1;
+    min-width: 250px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 修正對齊問題 */
+}
 
+/* 社群圈圈對齊下方的文字 */
+footer .icon {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
 
+footer .icon img {
+    width: 35px;
+    height: 35px;
+    transition: 0.3s;
+}
+
+footer .icon img:hover {
+    transform: translateY(-5px); /* 增加動態感 */
+}
+
+.pagetop {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #F5A623;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+}
+
+.pagetop img {
+    width: 25px;
+}
